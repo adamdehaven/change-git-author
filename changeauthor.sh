@@ -156,7 +156,6 @@ if [ "$SHOULD_EXECUTE" = true ] ; then
     echo "#    "
     # Sleep for a sec to let user cancel
     sleep 5
-    echo "#    "
 
     # -----------  Update Remote  -----------
     git push --force --tags "$REPO_REMOTE" 'refs/heads/*'
