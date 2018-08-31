@@ -12,7 +12,7 @@
 ```
 
 3. You'll be prompted with configuration options, after which, the script will update your local repository and push the changes to the specified remote:
-```shell
+```
 #
 #    Change Author for Existing Commits
 #    ----------------------------------
