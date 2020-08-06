@@ -358,6 +358,8 @@ if [ "$SHOULD_EXECUTE" -eq 0 ]; then
     done
 fi
 
+echo ""
+
 # If SHOULD_EXECUTE is true, rewrite repo history, otherwise, kill
 if [ "$SHOULD_EXECUTE" -eq 1 ]; then
     # Alter commits and rewrite history
