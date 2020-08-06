@@ -1,64 +1,89 @@
 # Change Git Author
+
+This action is destructive to your repository's history. If you're collaborating on a repository with others, it's considered bad practice to rewrite published history.
+
+**You should only do this in an emergency.**
+
+Running this script rewrites history for all repository collaborators. After completing these steps, any person with forks or clones must fetch the rewritten history and rebase any local changes into the rewritten history.
+
+## Usage
+
+1. [Download the script](https://github.com/adamdehaven/change-git-author) from GitHub and save it to an easily-accessible directory on your computer.
+2. Change the permissions of the script file to allow it to execute:
+
+``` sh
+chmod +x /path/to/changeauthor.sh
+```
+
+3. Navigate into the repository with the incorrect commit history
+
+``` sh
+cd path/to/repo
+```
+
+4. Run the script (with or without flags)
+
+``` sh
+./changeauthor.sh
+```
+
+If you run the script with no [option flags](#options), you will be prompted for the needed values via interactive prompts. The script will then proceed to update your local repository and push the changes to the specified remote.
+
+If you did not change the permissions to allow execution, you can also call the script with `bash ./changeauthor.sh`
+
+## Options
+
+You may pass options (as flags) directly to the script, or pass nothing to run the script in interactive mode.
+
+### old-email
+
+- Usage: `-o`, `--old-email`
+- Example: `emmett.brown@example.com`
+
+The old/incorrect email address of the author you would like to replace in the commit history.
+
+### new-email
+
+- Usage: `-e`, `--new-email`
+- Example: `marty.mcfly@example.com`
+
+The new/corrected email address to replace in commits matching the [old-email](#old-email) address.
+
+### new-name
+
+- Usage: `-n`, `--new-name`
+- Example: `Marty McFly`
+
+The new/corrected name for the new commit author info. (Be sure to enclose name in quotes)
+
+### remote
+
+- Usage: `-r`, `--remote`
+- Default: `origin`
+- Example: `github`
+
+The name of the repository remote you would like to alter.
+
+### force
+
+- Usage: `-f`, `--force`
+
+Allows the script to run successfully in a non-interactive shell (assuming all required flags are set), bypassing the confirmation prompt.
+
+> **WARNING**
+>
+> By passing the `--force` flag (along with all other required flags), **there is no turning back**. > Once you start the script, the process will start and can severely damage your repository if stopped prematurely.
+
+### help
+
+- Usage: `-h`, `-?`, `--help`
+
+Show the help content.
+
+### version
+
+- Usage: `-v`, `-V`, `--version`
+
+Show version information.
+
 ---
-
-### Usage Instructions
-1. Navigate to your repository
-```shell
-    cd path/to/repo
-```
-2. Run the script
-```shell
-    bash ./changeauthor.sh
-```
-
-3. You'll be prompted with configuration options, after which, the script will update your local repository and push the changes to the specified remote:
-```
-#
-#    Change Author for Existing Commits
-#    ----------------------------------
-#
-#    1. Enter the email address of the author you
-#       would like to replace in the commit history.
-#
-#       Email to Replace: emmett.brown@example.com
-#
-#    2. Enter a new/corrected email for this user.
-#
-#       New Email: marty.mcfly@example.com
-#
-#    3. Enter the new/corrected name for this user.
-#       (Be sure to enclose name in quotes)
-#
-#       New Name: "Marty McFly"
-#
-#    4. Enter the remote you would like to alter.
-#       (Default: origin)
-#
-#       Remote Name: origin
-#
-#    5. Are you sure you want to rewrite the entire
-#       history of your Git repository?
-#
-#       Note: Running this script rewrites history for all
-#       repository collaborators. Any person with forks
-#       or clones must fetch the rewritten history and
-#       rebase any local changes into the rewritten history.
-#
-#       [y/n]: y
-#
-#    [Rewrite messages...]
-#
-#    Successfully Updated Local Author Info
-#
-#    Preparing to push to remote 'origin'...
-#    (Now is your chance to cancel)
-#
-#    Successfully Updated Remote Author Info
-#
-#    The author info for commits linked to
-#    'emmett.brown@example.com' have been updated to
-#    'Marty McFly <marty.mcfly@example.com>' and the changes
-#    have been pushed to remote 'origin'.
-```
-
-Source script from [GitHub.com](https://help.github.com/articles/changing-author-info/)
