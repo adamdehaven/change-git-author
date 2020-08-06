@@ -363,7 +363,7 @@ echo ""
 # If SHOULD_EXECUTE is true, rewrite repo history, otherwise, kill
 if [ "$SHOULD_EXECUTE" -eq 1 ]; then
     # Alter commits and rewrite history
-    git filter-branch --env-filter -f '
+    git filter-branch -f --env-filter '
     if [ "$GIT_COMMITTER_EMAIL" = "'"$USER_OLD_EMAIL"'" ]
     then
         export GIT_COMMITTER_NAME="'"$USER_NEW_NAME"'"
