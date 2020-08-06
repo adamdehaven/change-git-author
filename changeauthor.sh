@@ -38,17 +38,17 @@ while (("$#")); do
     # echo "  ${COLOR_CYAN}$1${COLOR_RESET}"
 
     case "$1" in
-    -h | -\? | --help)
+    -h|-\?|--help)
         SHOW_HELP=1
         ;;
-    -v | -V | --version)
+    -v|-V|--version)
         SHOW_VERSION=1
         ;;
-    -f | --force)
+    -f|--force)
         SHOULD_EXECUTE=1
         ;;
     # USER_OLD_EMAIL
-    -o | --old-email)
+    -o|--old-email)
         if [ "$2" ]; then
             USER_OLD_EMAIL="$2"
             shift # Remove argument name from processing
@@ -57,12 +57,11 @@ while (("$#")); do
             exit 1
         fi
         ;;
-    -o=*? | --old-email=*?)
+    -o=*?|--old-email=*?)
         USER_OLD_EMAIL="${1#*=}"
-        shift # Remove domain from processing
         ;;
     # USER_NEW_EMAIL
-    -e | --new-email)
+    -e|--new-email)
         if [ "$2" ]; then
             USER_NEW_EMAIL="$2"
             shift # Remove argument name from processing
@@ -71,12 +70,11 @@ while (("$#")); do
             exit 1
         fi
         ;;
-    -e=*? | --new-email=*?)
+    -e=*?|--new-email=*?)
         USER_NEW_EMAIL="${1#*=}"
-        shift # Remove domain from processing
         ;;
     # USER_NEW_NAME
-    -n | --new-name)
+    -n|--new-name)
         if [ "$2" ]; then
             USER_NEW_NAME="$2"
             shift # Remove argument name from processing
@@ -85,12 +83,11 @@ while (("$#")); do
             exit 1
         fi
         ;;
-    -n=*? | --new-name=*?)
+    -n=*?|--new-name=*?)
         USER_NEW_NAME="${1#*=}"
-        shift # Remove domain from processing
         ;;
     # USER_REMOTE
-    -r | --remote)
+    -r|--remote)
         if [ "$2" ]; then
             USER_REMOTE="$2"
             shift # Remove argument name from processing
@@ -99,12 +96,11 @@ while (("$#")); do
             exit 1
         fi
         ;;
-    -r=*? | --remote=*?)
+    -r=*?|--remote=*?)
         USER_REMOTE="${1#*=}"
-        shift # Remove domain from processing
         ;;
     # End of all options
-    -* | --*=) # unsupported flags
+    -*|--*=) # unsupported flags
         echo "${COLOR_RED}ERROR: Flag $1 is not a supported option."${COLOR_RESET} >&2
         exit 1
         ;;
