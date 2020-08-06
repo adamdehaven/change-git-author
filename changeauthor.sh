@@ -195,13 +195,14 @@ fi
 # USER_OLD_EMAIL
 if [ -z "$USER_OLD_EMAIL" ] && [ "$SHOULD_EXECUTE" -eq 0 ]; then
     echo ""
-    echo "Change Author for Existing Commits"
-    echo "----------------------------------"
+    echo "# ---------------------------------- #"
+    echo "# Change Author for Existing Commits #"
+    echo "# ---------------------------------- #"
     # Prompt user for email to replace ( USER_OLD_EMAIL )
     echo ""
     echo "Enter the email address of the author you "
     echo "would like to replace in the commit history."
-    echo ""
+    echo "--------------------------------------------"
     read -e -p "Email to Replace: ${COLOR_CYAN}" USER_OLD_EMAIL
     echo -e "${COLOR_RESET}"
 elif [ -z "$USER_OLD_EMAIL" ] && [ "$SHOULD_EXECUTE" -eq 1 ]; then
@@ -236,7 +237,7 @@ if [ -z "$USER_NEW_EMAIL" ] && [ "$SHOULD_EXECUTE" -eq 0 ]; then
     # Prompt user for correct email ( USER_NEW_EMAIL )
     echo ""
     echo "Enter a new/corrected email for this user."
-    echo ""
+    echo "------------------------------------------"
     read -e -p "New Email: ${COLOR_CYAN}" USER_NEW_EMAIL
     echo -e "${COLOR_RESET}"
 elif [ -z "$USER_NEW_EMAIL" ] && [ "$SHOULD_EXECUTE" -eq 1 ]; then
@@ -255,12 +256,23 @@ else
     USER_NEW_EMAIL="${USER_NEW_EMAIL}"
 fi
 
+if [ "$USER_OLD_EMAIL" == "$USER_NEW_EMAIL" ]; then
+    # Remote does not exist
+    echo ""
+    echo "${COLOR_YELLOW}The old email address, '${USER_OLD_EMAIL}' matches the${COLOR_RESET}"
+    echo "${COLOR_YELLOW}new email address you provided, '${USER_NEW_EMAIL}'.${COLOR_RESET}"
+    echo ""
+    echo "${COLOR_YELLOW}No changes are necessary.${COLOR_RESET}"
+    echo ""
+    kill "$SCRIPT_PID"
+fi
+
 # USER_NEW_NAME
 if [ -z "$USER_NEW_NAME" ] && [ "$SHOULD_EXECUTE" -eq 0 ]; then
     # Prompt user for correct name ( USER_NEW_NAME )
     echo ""
     echo "Enter the new/corrected first and last name for this user."
-    echo ""
+    echo "----------------------------------------------------------"
     read -e -p "New Name: ${COLOR_CYAN}" USER_NEW_NAME
     echo -e "${COLOR_RESET}"
 elif [ -z "$USER_NEW_NAME" ] && [ "$SHOULD_EXECUTE" -eq 1 ]; then
@@ -283,7 +295,7 @@ if [ -z "$USER_REMOTE" ] && [ "$SHOULD_EXECUTE" -eq 0 ]; then
     # Prompt user for remote (Default: 'origin' )
     echo ""
     echo "Enter the remote you would like to alter. ${COLOR_YELLOW}(Default: origin)${COLOR_RESET}"
-    echo ""
+    echo "--------------------------------------------------------"
     read -e -p "Remote Name: ${COLOR_CYAN}" -i "${DEFAULT_REMOTE}" USER_REMOTE
     echo -e "${COLOR_RESET}"
 elif [ -z "$USER_REMOTE" ] && [ "$SHOULD_EXECUTE" -eq 1 ]; then
