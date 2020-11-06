@@ -7,7 +7,7 @@
 # the rewritten history and rebase any local changes into the rewritten history.
 #
 
-VERSION="v2.1.0"
+VERSION="v2.1.1"
 
 # Set Defaults
 SHOW_HELP=0
@@ -225,6 +225,18 @@ if [ "$SHOW_HELP" -eq 1 ]; then
 # If user passed version flag
 elif [ "$SHOW_VERSION" -eq 1 ]; then
   showVersion
+  exit
+fi
+
+# Check if --git-dir is inside git repository, if not, exit
+INSIDE_GIT_REPO="$(git ${USER_GIT_DIR} ${USER_WORK_TREE} rev-parse --is-inside-work-tree 2>/dev/null)"
+if [ ! "$INSIDE_GIT_REPO" ]; then
+  echo ""
+  echo "${COLOR_RED}ERROR: This is not a git repository.${COLOR_RESET}"
+  echo ""
+  echo "${COLOR_YELLOW}You must run the script from within a git repository or utilize${COLOR_RESET}"
+  echo "${COLOR_YELLOW}the --git-dir and --work-tree flags to set the path to the${COLOR_RESET}"
+  echo "${COLOR_YELLOW}repository and working tree. Run with --help for more info.${COLOR_RESET}"
   exit
 fi
 
