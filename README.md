@@ -99,5 +99,3 @@ Show the help content.
 - Usage: `-v`, `-V`, `--version`
 
 Show version information.
-
----
