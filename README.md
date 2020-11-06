@@ -70,6 +70,20 @@ The name of the repository remote you would like to alter.
 
 Allows the script to run successfully in a non-interactive shell (assuming all required flags are set), bypassing the confirmation prompt.
 
+### git-dir
+
+- Usage: `-d`, `--git-dir`
+
+Set the path to the repository (".git" directory) if it differs from the current directory. It can be an absolute path or relative path to current working directory.
+
+This option should be used in conjunction with the `--work-tree` flag.
+
+### work-tree
+
+- Usage: `-w`, `--work-tree`
+
+Set the path to the working tree. It can be an absolute path or a path relative to the current working directory.
+
 > **WARNING**
 >
 > By passing the `--force` flag (along with all other required flags), **there is no turning back**. > Once you start the script, the process will start and can severely damage your repository if stopped prematurely.
