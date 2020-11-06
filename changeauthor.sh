@@ -7,7 +7,7 @@
 # the rewritten history and rebase any local changes into the rewritten history.
 #
 
-VERSION="v2.1.1"
+VERSION="v2.1.0"
 
 # Set Defaults
 SHOW_HELP=0
@@ -443,10 +443,8 @@ echo ""
 
 # If SHOULD_EXECUTE is true, and REPOSITORY_VERIFIED is true, rewrite repo history, otherwise, kill
 if [ "$SHOULD_EXECUTE" -eq 1 ] && [ "$REPOSITORY_VERIFIED" -eq 1 ]; then
-  # Squelch warnings
-  FILTER_BRANCH_SQUELCH_WARNING=1
   # Alter commits and rewrite history
-  git ${USER_GIT_DIR} ${USER_WORK_TREE} filter-branch -f --env-filter '
+  git ${USER_GIT_DIR:+-$USER_GIT_DIR} ${USER_WORK_TREE:+-$USER_WORK_TREE} filter-branch -f --env-filter '
     if [ "$GIT_COMMITTER_EMAIL" = "'"$USER_OLD_EMAIL"'" ]
     then
         export GIT_COMMITTER_NAME="'"$USER_NEW_NAME"'"
@@ -471,7 +469,7 @@ if [ "$SHOULD_EXECUTE" -eq 1 ] && [ "$REPOSITORY_VERIFIED" -eq 1 ]; then
   sleep 5
 
   # Update Remote
-  git "$USER_GIT_DIR" "$USER_WORK_TREE" push --force --tags "$USER_REMOTE" 'refs/heads/*'
+  git ${USER_GIT_DIR:+-$USER_GIT_DIR} ${USER_WORK_TREE:+-$USER_WORK_TREE} push --force --tags "$USER_REMOTE" 'refs/heads/*'
 
   echo ""
   echo "${COLOR_GREEN}Successfully Updated Remote Author Info${COLOR_RESET}"
@@ -488,7 +486,6 @@ fi
 # Reset global vars
 REPOSITORY_VERIFIED=0
 SHOULD_EXECUTE=0
-FILTER_BRANCH_SQUELCH_WARNING=0
 # Reset git environment variables
 USER_GIT_DIR=
 USER_WORK_TREE=
