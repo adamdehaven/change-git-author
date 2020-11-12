@@ -398,7 +398,6 @@ if [ "$UPDATE_REMOTE" -eq 1 ] && [ -z "$USER_REMOTE" ] && [ "$SHOULD_EXECUTE" -e
   echo "Enter the name of the remote you would like to alter."
   echo "Default: ${COLOR_YELLOW}${DEFAULT_REMOTE}${COLOR_RESET}"
   echo "--------------------------------------------------------"
-#   read -e -p "Remote Name: ${COLOR_CYAN}" -i "${DEFAULT_REMOTE}" USER_REMOTE
   read -e -p "Remote Name [Press enter to use ${COLOR_YELLOW}${DEFAULT_REMOTE}${COLOR_RESET}]: ${COLOR_CYAN}" USER_REMOTE
   USER_REMOTE=${USER_REMOTE:-"$DEFAULT_REMOTE"}
   echo -e "${COLOR_RESET}"
@@ -463,7 +462,6 @@ fi
 
 # Have the user confirm before executing (if they didn't already cancel)
 if [ "$SHOULD_EXECUTE" -eq 0 ] && { [ "$REPOSITORY_VERIFIED" -eq 1 ] || [ "$UPDATE_REMOTE" -eq 0 ]; }; then
-  # if [ "$SHOULD_EXECUTE" -eq 0 ] && [ "$REPOSITORY_VERIFIED" -eq 1 ]; then
   while true; do
     echo ""
     echo "Are you sure you want to rewrite the entire"
