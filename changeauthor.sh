@@ -7,7 +7,7 @@
 # the rewritten history and rebase any local changes into the rewritten history.
 #
 
-VERSION="v2.1.0"
+VERSION="v2.2.0"
 
 # Set Defaults
 SHOW_HELP=0
