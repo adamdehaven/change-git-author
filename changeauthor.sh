@@ -1,5 +1,5 @@
 #!/bin/sh
-
+#
 # Change the Git history of a repository
 #
 # Note: Running this script rewrites history for all repository collaborators.
