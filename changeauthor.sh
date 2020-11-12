@@ -322,7 +322,7 @@ else
   USER_NEW_EMAIL=$(echo "$USER_NEW_EMAIL" | awk "{print tolower(\$0)}")
 fi
 
-if [ "${USER_OLD_EMAIL,,}" == "$USER_NEW_EMAIL" ]; then
+if [ "$USER_OLD_EMAIL" == "$USER_NEW_EMAIL" ]; then
   # Remote does not exist
   echo "${COLOR_YELLOW}The old email address, '${USER_OLD_EMAIL}' matches the${COLOR_RESET}"
   echo "${COLOR_YELLOW}new email address you provided, '${USER_NEW_EMAIL}'.${COLOR_RESET}"
