@@ -1,4 +1,5 @@
-#!/bin/sh
+#!/bin/bash
+
 #
 # Change the Git history of a repository
 #
