@@ -70,7 +70,7 @@ The name of the repository remote you would like to alter.
 
 Allows the script to run successfully in a non-interactive shell (assuming all required flags are set), bypassing the confirmation prompt.
 
-If you do not pass a value to the `--remote` flag when using `--force`, the default remote will be used.
+If you do not pass a value to the `--remote` flag when using `--force`, the default remote (`origin`) will be used.
 
 > **WARNING**
 >
