@@ -32,9 +32,6 @@ COLOR_YELLOW=$'\e[93m'
 COLOR_GREEN=$'\e[32m'
 COLOR_RESET=$'\e[0m'
 
-# Get PID of process to kill later if needed
-SCRIPT_PID=$$
-
 PARAMS=""
 
 # Loop through arguments and process them
@@ -297,12 +294,9 @@ USER_OLD_EMAIL_EXISTS="$(git ${USER_GIT_DIR} ${USER_WORK_TREE} log --pretty=form
 # If USER_OLD_EMAIL does NOT exist in log
 if [ -z "$USER_OLD_EMAIL_EXISTS" ]; then
   # USER_OLD_EMAIL does not exist in log
-  echo ""
   echo "${COLOR_YELLOW}The email '${USER_OLD_EMAIL}' does not exist in the commit history for ${COLOR_RESET}"
   echo "${COLOR_YELLOW}this repository. Please check your spelling and try again.${COLOR_RESET}"
-  echo ""
-  SHOULD_EXECUTE=0
-  kill "$SCRIPT_PID"
+  exit 1
 fi
 
 # USER_NEW_EMAIL
@@ -314,12 +308,9 @@ if [ -z "$USER_NEW_EMAIL" ] && [ "$SHOULD_EXECUTE" -eq 0 ]; then
   read -e -p "New Email: ${COLOR_CYAN}" USER_NEW_EMAIL
   echo -e "${COLOR_RESET}"
 elif [ -z "$USER_NEW_EMAIL" ] && [ "$SHOULD_EXECUTE" -eq 1 ]; then
-  echo ""
   echo "${COLOR_RED}ERROR: --new-email is required.${COLOR_RESET}"
   echo "${COLOR_RED}A new email address is required. Please try again.${COLOR_RESET}"
-  echo ""
-  SHOULD_EXECUTE=0
-  kill "$SCRIPT_PID"
+  exit 1
 fi
 
 if [ -z "$USER_NEW_EMAIL" ]; then
@@ -331,16 +322,13 @@ else
   USER_NEW_EMAIL="${USER_NEW_EMAIL,,}"
 fi
 
-if [ "$USER_OLD_EMAIL" == "$USER_NEW_EMAIL" ]; then
+if [ "${USER_OLD_EMAIL,,}" == "$USER_NEW_EMAIL" ]; then
   # Remote does not exist
-  echo ""
   echo "${COLOR_YELLOW}The old email address, '${USER_OLD_EMAIL}' matches the${COLOR_RESET}"
   echo "${COLOR_YELLOW}new email address you provided, '${USER_NEW_EMAIL}'.${COLOR_RESET}"
   echo ""
   echo "${COLOR_YELLOW}No changes are necessary.${COLOR_RESET}"
-  echo ""
-  SHOULD_EXECUTE=0
-  kill "$SCRIPT_PID"
+  exit 1
 fi
 
 # USER_NEW_NAME
@@ -352,11 +340,8 @@ if [ -z "$USER_NEW_NAME" ] && [ "$SHOULD_EXECUTE" -eq 0 ]; then
   read -e -p "New Name: ${COLOR_CYAN}" USER_NEW_NAME
   echo -e "${COLOR_RESET}"
 elif [ -z "$USER_NEW_NAME" ] && [ "$SHOULD_EXECUTE" -eq 1 ]; then
-  echo ""
   echo "${COLOR_RED}A name is required. Please try again.${COLOR_RESET}"
-  echo ""
-  SHOULD_EXECUTE=0
-  kill "$SCRIPT_PID"
+  exit 1
 fi
 
 if [ -z "$USER_NEW_NAME" ]; then
