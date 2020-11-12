@@ -281,8 +281,8 @@ elif [ -z "$USER_OLD_EMAIL" ] && [ "$SHOULD_EXECUTE" -eq 1 ]; then
 fi
 
 if [ -z "$USER_OLD_EMAIL" ]; then
-  echo "${COLOR_RED}ERROR: --old-email is required.${COLOR_RESET}"
-  echo "${COLOR_RED}Try again by passing a valid old email address or removing the --force flag."${COLOR_RESET} >&2
+  echo "${COLOR_RED}ERROR: Email to Replace is required.${COLOR_RESET}"
+  echo "${COLOR_RED}Try again and be sure to provide a valid email address to replace."${COLOR_RESET} >&2
   exit 1
 else
   USER_OLD_EMAIL="${USER_OLD_EMAIL}"
@@ -314,8 +314,8 @@ elif [ -z "$USER_NEW_EMAIL" ] && [ "$SHOULD_EXECUTE" -eq 1 ]; then
 fi
 
 if [ -z "$USER_NEW_EMAIL" ]; then
-  echo "${COLOR_RED}ERROR: --new-email is required.${COLOR_RESET}"
-  echo "${COLOR_RED}Try again by passing a valid new email address or removing the --force flag."${COLOR_RESET} >&2
+  echo "${COLOR_RED}ERROR: New Email is required.${COLOR_RESET}"
+  echo "${COLOR_RED}Try again and be sure to provide a valid new email address."${COLOR_RESET} >&2
   exit 1
 else
   # Set new email, and force to lowercase
@@ -340,13 +340,14 @@ if [ -z "$USER_NEW_NAME" ] && [ "$SHOULD_EXECUTE" -eq 0 ]; then
   read -e -p "New Name: ${COLOR_CYAN}" USER_NEW_NAME
   echo -e "${COLOR_RESET}"
 elif [ -z "$USER_NEW_NAME" ] && [ "$SHOULD_EXECUTE" -eq 1 ]; then
-  echo "${COLOR_RED}A name is required. Please try again.${COLOR_RESET}"
+  echo "${COLOR_RED}ERROR: --new-name is required.${COLOR_RESET}"
+  echo "${COLOR_RED}Try again by passing a valid first and last name or removing the --force flag."${COLOR_RESET} >&2
   exit 1
 fi
 
 if [ -z "$USER_NEW_NAME" ]; then
-  echo "${COLOR_RED}ERROR: --new-name is required.${COLOR_RESET}"
-  echo "${COLOR_RED}Try again by passing a valid new name or removing the --force flag."${COLOR_RESET} >&2
+  echo "${COLOR_RED}ERROR: New Name is required.${COLOR_RESET}"
+  echo "${COLOR_RED}Try again and be sure to provide a valid first and last name."${COLOR_RESET} >&2
   exit 1
 else
   USER_NEW_NAME="${USER_NEW_NAME}"
