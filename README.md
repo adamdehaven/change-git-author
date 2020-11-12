@@ -21,10 +21,20 @@ chmod +x /path/to/changeauthor.sh
 cd path/to/repo
 ```
 
+  Alternatively, you can run from anywhere by passing the `--git-dir` and `--work-tree` flags.
+
 4. Run the script (with or without flags)
 
 ``` sh
-./changeauthor.sh
+./changeauthor.sh [OPTIONS]...
+```
+
+Alternatively, you may execute with either of the following:
+
+``` sh
+sh ./changeauthor.sh [OPTIONS]...
+
+bash ./changeauthor.sh [OPTIONS]...
 ```
 
 If you run the script with no [option flags](#options), you will be prompted for the needed values via interactive prompts. The script will then proceed to update your local repository and push the changes to the specified remote.
