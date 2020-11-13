@@ -11,33 +11,35 @@ Running this script rewrites history for all repository collaborators. After com
 1. [Download the script](https://github.com/adamdehaven/change-git-author) from GitHub and save it to an easily-accessible directory on your computer.
 2. Change the permissions of the script file to allow it to execute:
 
-``` sh
-chmod +x /path/to/changeauthor.sh
-```
+    ``` sh
+    chmod +x /path/to/changeauthor.sh
+    ```
 
 3. Navigate into the repository with the incorrect commit history
 
-``` sh
-cd path/to/repo
-```
+    ``` sh
+    cd path/to/repo
+    ```
 
-  Alternatively, you can run from anywhere by passing the `--git-dir` and `--work-tree` flags.
+    Alternatively, you can run from anywhere by passing the `--git-dir` and `--work-tree` flags.
 
 4. Run the script (with or without flags)
 
-``` sh
-./changeauthor.sh [OPTIONS]...
-```
+    ``` sh
+    ./changeauthor.sh [OPTIONS]...
+    ```
 
-If you did not change the permissions to allow execution, you can also call the script with either of the following:
+    If you did not change the permissions to allow execution, you can also call the script with either of the following:
 
-``` sh
-bash ./changeauthor.sh [OPTIONS]...
+    ``` sh
+    bash ./changeauthor.sh [OPTIONS]...
 
-sh ./changeauthor.sh [OPTIONS]...
-```
+    sh ./changeauthor.sh [OPTIONS]...
+    ```
 
-If you run the script with no [option flags](#options), you will be prompted for the needed values via interactive prompts. The script will then proceed to update your local repository and push the changes to the specified remote.
+    If you run the script with no [option flags](#options), you will be prompted for the needed values via interactive prompts. The script will then proceed to update your local repository and push the changes to the specified remote.
+
+----
 
 If you would like to suppress the git-filter-branch warning, simply add the following line the `~/.bashrc` file on your computer:
 
