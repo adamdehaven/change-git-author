@@ -29,17 +29,30 @@ cd path/to/repo
 ./changeauthor.sh [OPTIONS]...
 ```
 
-Alternatively, you may execute with either of the following:
+If you did not change the permissions to allow execution, you can also call the script with either of the following:
 
 ``` sh
-sh ./changeauthor.sh [OPTIONS]...
-
 bash ./changeauthor.sh [OPTIONS]...
+
+sh ./changeauthor.sh [OPTIONS]...
 ```
 
 If you run the script with no [option flags](#options), you will be prompted for the needed values via interactive prompts. The script will then proceed to update your local repository and push the changes to the specified remote.
 
-If you did not change the permissions to allow execution, you can also call the script with `bash ./changeauthor.sh`
+If you would like to suppress the git-filter-branch warning, simply add the following line the `~/.bashrc` file on your computer:
+
+``` sh
+export FILTER_BRANCH_SQUELCH_WARNING=1
+```
+
+If you prefer to set up the script as a function you can call from anywhere, add the following function to your `~/.bashrc` file:
+
+``` sh
+function changegitauthor() {
+  # Update the path to point to the absolute path of the script on your computer
+  bash /c/absolute/path/to/change-git-author/changeauthor.sh "$@"
+}
+```
 
 ## Options
 
