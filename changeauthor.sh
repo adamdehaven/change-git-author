@@ -8,7 +8,7 @@
 # the rewritten history and rebase any local changes into the rewritten history.
 #
 
-VERSION="v2.3.0"
+VERSION="v2.3.1"
 
 # Set Defaults
 SHOW_HELP=0
@@ -67,7 +67,7 @@ while (("$#")); do
   # USER_NEW_EMAIL
   -e | --new-email)
     if [ "$2" ]; then
-      USER_NEW_EMAIL=$(echo "$2" | awk "{print tolower(\$0)}")
+      USER_NEW_EMAIL="$2"
       shift # Remove argument name from processing
     else
       echo "${COLOR_RED}ERROR: Value for $1 is required."${COLOR_RESET} >&2
@@ -75,7 +75,7 @@ while (("$#")); do
     fi
     ;;
   -e=*? | --new-email=*?)
-    USER_NEW_EMAIL=$(echo "${1#*=}" | awk "{print tolower(\$0)}")
+    USER_NEW_EMAIL="${1#*=}"
     ;;
   # USER_NEW_NAME
   -n | --new-name)
@@ -319,7 +319,7 @@ if [ -z "$USER_NEW_EMAIL" ]; then
   exit 1
 else
   # Set USER_NEW_EMAIL and transform to lowercase
-  USER_NEW_EMAIL=$(echo "$USER_NEW_EMAIL" | awk "{print tolower(\$0)}")
+  USER_NEW_EMAIL="${USER_NEW_EMAIL}"
 fi
 
 if [ "$USER_OLD_EMAIL" == "$USER_NEW_EMAIL" ]; then
