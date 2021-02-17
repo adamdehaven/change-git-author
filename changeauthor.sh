@@ -18,6 +18,7 @@ SHOULD_EXECUTE=0      # Set global SHOULD_EXECUTE function to false so user must
 REMOTE_REPOSITORY=
 USER_OLD_EMAIL=
 USER_NEW_EMAIL=
+PRESERVE_NEW_EMAIL_CASE=0
 USER_NEW_NAME=
 USER_GIT_DIR=
 USER_WORK_TREE=
@@ -67,7 +68,7 @@ while (("$#")); do
   # USER_NEW_EMAIL
   -e | --new-email)
     if [ "$2" ]; then
-      USER_NEW_EMAIL=$(echo "$2" | awk "{print tolower(\$0)}")
+      USER_NEW_EMAIL="$2"
       shift # Remove argument name from processing
     else
       echo "${COLOR_RED}ERROR: Value for $1 is required."${COLOR_RESET} >&2
@@ -75,7 +76,10 @@ while (("$#")); do
     fi
     ;;
   -e=*? | --new-email=*?)
-    USER_NEW_EMAIL=$(echo "${1#*=}" | awk "{print tolower(\$0)}")
+    USER_NEW_EMAIL="${1#*=}"
+    ;;
+  -p | --preserve-new-email-case)
+    PRESERVE_NEW_EMAIL_CASE=1
     ;;
   # USER_NEW_NAME
   -n | --new-name)
@@ -200,6 +204,10 @@ showHelp() {
   echo "                                the old email."
   echo "                                Example: ${COLOR_CYAN}marty.mcfly@example.com${COLOR_RESET}"
   echo ""
+  echo "  -p, --preserve-new-email-case  By default, the new email address is converted to lower case;"
+  echo "                                this switch disables that, allowing you to use a mixed case"
+  echo "                                email address."
+  echo ""
   echo "  -n, --new-name                The new/corrected name for the new commit author info."
   echo "                                ${COLOR_YELLOW}Be sure to enclose the name in quotes if passing as a flag${COLOR_RESET}"
   echo "                                Example: ${COLOR_CYAN}marty.mcfly@example.com${COLOR_RESET}"
@@ -317,7 +325,7 @@ if [ -z "$USER_NEW_EMAIL" ]; then
   echo "${COLOR_RED}ERROR: New Email is required.${COLOR_RESET}"
   echo "${COLOR_RED}Try again and be sure to provide a valid new email address."${COLOR_RESET} >&2
   exit 1
-else
+elif [ "$PRESERVE_NEW_EMAIL_CASE" -eq 0 ]; then
   # Set USER_NEW_EMAIL and transform to lowercase
   USER_NEW_EMAIL=$(echo "$USER_NEW_EMAIL" | awk "{print tolower(\$0)}")
 fi
