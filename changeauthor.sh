@@ -8,7 +8,7 @@
 # the rewritten history and rebase any local changes into the rewritten history.
 #
 
-VERSION="v2.3.1"
+VERSION="v2.4.0"
 
 # Set Defaults
 SHOW_HELP=0
@@ -322,12 +322,40 @@ else
   USER_NEW_EMAIL="${USER_NEW_EMAIL}"
 fi
 
-if [ "$USER_OLD_EMAIL" == "$USER_NEW_EMAIL" ]; then
-  # Remote does not exist
-  echo "${COLOR_YELLOW}The old email address, '${USER_OLD_EMAIL}' matches the${COLOR_RESET}"
-  echo "${COLOR_YELLOW}new email address you provided, '${USER_NEW_EMAIL}'.${COLOR_RESET}"
+# If old email address matches new email address
+if [ "$USER_OLD_EMAIL" == "$USER_NEW_EMAIL" ] && [ "$SHOULD_EXECUTE" -eq 0 ]; then
+  # Check if user would like to update a remote repository
+  while true; do
+    echo "${COLOR_YELLOW}The old email address, '${USER_OLD_EMAIL}' matches the${COLOR_RESET}"
+    echo "${COLOR_YELLOW}new email address you provided, '${USER_NEW_EMAIL}'.${COLOR_RESET}"
+    echo "${COLOR_YELLOW}If you continue, you will only be updating the name.${COLOR_RESET}"
+    echo ""
+    read -e -p "${COLOR_YELLOW}Continue to updating the name only? [y/n]: ${COLOR_CYAN}" UPDATE_NAME
+    echo -e "${COLOR_RESET}"
+    case $UPDATE_NAME in
+    [Yy]*)
+      UPDATE_NAME=1
+      break
+      ;;
+    [Nn]*)
+      UPDATE_NAME=0
+      break
+      ;;
+    *)
+      echo ""
+      echo "   ${COLOR_YELLOW}You must enter 'y' or 'n' to signal if you would like to update just the name.${COLOR_RESET}"
+      echo ""
+      ;;
+    esac
+  done
+elif [ "$USER_OLD_EMAIL" == "$USER_NEW_EMAIL" ] && [ "$SHOULD_EXECUTE" -eq 1 ]; then
+  UPDATE_NAME=1
+fi
+
+if [ "$UPDATE_NAME" -eq 0 ]; then
   echo ""
   echo "${COLOR_YELLOW}No changes are necessary.${COLOR_RESET}"
+  SHOULD_EXECUTE=0
   exit 1
 fi
 
@@ -423,7 +451,6 @@ if [ "$UPDATE_REMOTE" -eq 1 ]; then
 
   # If USER_REMOTE does NOT exist
   if [ -z "$USER_REMOTE_EXISTS" ] || [ -z "$REMOTE_REPOSITORY" ]; then
-    # USER_REMOTE does not exist
     echo ""
     echo "${COLOR_YELLOW}The remote '${USER_REMOTE}' does not exist in this repository. ${COLOR_RESET}"
     echo "${COLOR_YELLOW}You may run 'git remote show' to view available remotes, and then try again.${COLOR_RESET}"
