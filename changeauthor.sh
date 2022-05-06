@@ -202,7 +202,7 @@ showHelp() {
   echo ""
   echo "  -n, --new-name                The new/corrected name for the new commit author info."
   echo "                                ${COLOR_YELLOW}Be sure to enclose the name in quotes if passing as a flag${COLOR_RESET}"
-  echo "                                Example: ${COLOR_CYAN}marty.mcfly@example.com${COLOR_RESET}"
+  echo "                                Example: ${COLOR_CYAN}Marty McFly${COLOR_RESET}"
   echo ""
   echo "  -r, --remote                  The name of the repository remote you would like to alter."
   echo "                                Default: ${COLOR_YELLOW}origin${COLOR_RESET}"
