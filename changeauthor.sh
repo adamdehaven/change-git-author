@@ -234,11 +234,11 @@ showHelp() {
 }
 
 # If user passed help flag
-if [ "$SHOW_HELP" -eq 1 ]; then
+if [ "$SHOW_HELP" == 1 ]; then
   showHelp
   exit
 # If user passed version flag
-elif [ "$SHOW_VERSION" -eq 1 ]; then
+elif [ "$SHOW_VERSION" == 1 ]; then
   showVersion
   exit
 fi
@@ -256,7 +256,7 @@ if [ ! "$INSIDE_GIT_REPO" ]; then
 fi
 
 # USER_OLD_EMAIL
-if [ -z "$USER_OLD_EMAIL" ] && [ "$SHOULD_EXECUTE" -eq 0 ]; then
+if [ -z "$USER_OLD_EMAIL" ] && [ "$SHOULD_EXECUTE" == 0 ]; then
   echo ""
   echo "# ---------------------------------- #"
   echo "# Change Author for Existing Commits #"
@@ -271,9 +271,9 @@ if [ -z "$USER_OLD_EMAIL" ] && [ "$SHOULD_EXECUTE" -eq 0 ]; then
   echo "Enter the email address of the author you "
   echo "would like to replace in the commit history."
   echo "--------------------------------------------"
-  read -e -p "Email to Replace: ${COLOR_CYAN}" USER_OLD_EMAIL
-  echo -e "${COLOR_RESET}"
-elif [ -z "$USER_OLD_EMAIL" ] && [ "$SHOULD_EXECUTE" -eq 1 ]; then
+  read -p "Email to Replace: ${COLOR_CYAN}" USER_OLD_EMAIL
+  echo "${COLOR_RESET}"
+elif [ -z "$USER_OLD_EMAIL" ] && [ "$SHOULD_EXECUTE" == 1 ]; then
   echo "${COLOR_RED}ERROR: --old-email is required.${COLOR_RESET}"
   echo "${COLOR_RED}Try again by passing a valid old email address or removing the --force flag."${COLOR_RESET} >&2
   exit 1
@@ -300,14 +300,14 @@ if [ -z "$USER_OLD_EMAIL_EXISTS" ]; then
 fi
 
 # USER_NEW_EMAIL
-if [ -z "$USER_NEW_EMAIL" ] && [ "$SHOULD_EXECUTE" -eq 0 ]; then
+if [ -z "$USER_NEW_EMAIL" ] && [ "$SHOULD_EXECUTE" == 0 ]; then
   # Prompt user for correct email ( USER_NEW_EMAIL )
   echo ""
   echo "Enter a new/corrected email for this user."
   echo "------------------------------------------"
-  read -e -p "New Email: ${COLOR_CYAN}" USER_NEW_EMAIL
-  echo -e "${COLOR_RESET}"
-elif [ -z "$USER_NEW_EMAIL" ] && [ "$SHOULD_EXECUTE" -eq 1 ]; then
+  read -p "New Email: ${COLOR_CYAN}" USER_NEW_EMAIL
+  echo "${COLOR_RESET}"
+elif [ -z "$USER_NEW_EMAIL" ] && [ "$SHOULD_EXECUTE" == 1 ]; then
   echo "${COLOR_RED}ERROR: --new-email is required.${COLOR_RESET}"
   echo "${COLOR_RED}A new email address is required. Please try again.${COLOR_RESET}"
   exit 1
@@ -323,15 +323,15 @@ else
 fi
 
 # If old email address matches new email address
-if [ "$USER_OLD_EMAIL" == "$USER_NEW_EMAIL" ] && [ "$SHOULD_EXECUTE" -eq 0 ]; then
+if [ "$USER_OLD_EMAIL" == "$USER_NEW_EMAIL" ] && [ "$SHOULD_EXECUTE" == 0 ]; then
   # Check if user would like to update a remote repository
   while true; do
     echo "${COLOR_YELLOW}The old email address, '${USER_OLD_EMAIL}' matches the${COLOR_RESET}"
     echo "${COLOR_YELLOW}new email address you provided, '${USER_NEW_EMAIL}'.${COLOR_RESET}"
     echo "${COLOR_YELLOW}If you continue, you will only be updating the name.${COLOR_RESET}"
     echo ""
-    read -e -p "${COLOR_YELLOW}Continue to updating the name only? [y/n]: ${COLOR_CYAN}" UPDATE_NAME
-    echo -e "${COLOR_RESET}"
+    read -p "${COLOR_YELLOW}Continue to updating the name only? [y/n]: ${COLOR_CYAN}" UPDATE_NAME
+    echo "${COLOR_RESET}"
     case $UPDATE_NAME in
     [Yy]*)
       UPDATE_NAME=1
@@ -348,11 +348,11 @@ if [ "$USER_OLD_EMAIL" == "$USER_NEW_EMAIL" ] && [ "$SHOULD_EXECUTE" -eq 0 ]; th
       ;;
     esac
   done
-elif [ "$USER_OLD_EMAIL" == "$USER_NEW_EMAIL" ] && [ "$SHOULD_EXECUTE" -eq 1 ]; then
+elif [ "$USER_OLD_EMAIL" == "$USER_NEW_EMAIL" ] && [ "$SHOULD_EXECUTE" == 1 ]; then
   UPDATE_NAME=1
 fi
 
-if [ "$UPDATE_NAME" -eq 0 ]; then
+if [ "$UPDATE_NAME" == 0 ]; then
   echo ""
   echo "${COLOR_YELLOW}No changes are necessary.${COLOR_RESET}"
   SHOULD_EXECUTE=0
@@ -360,14 +360,14 @@ if [ "$UPDATE_NAME" -eq 0 ]; then
 fi
 
 # USER_NEW_NAME
-if [ -z "$USER_NEW_NAME" ] && [ "$SHOULD_EXECUTE" -eq 0 ]; then
+if [ -z "$USER_NEW_NAME" ] && [ "$SHOULD_EXECUTE" == 0 ]; then
   # Prompt user for correct name ( USER_NEW_NAME )
   echo ""
   echo "Enter the new/corrected first and last name for this user."
   echo "----------------------------------------------------------"
-  read -e -p "New Name: ${COLOR_CYAN}" USER_NEW_NAME
-  echo -e "${COLOR_RESET}"
-elif [ -z "$USER_NEW_NAME" ] && [ "$SHOULD_EXECUTE" -eq 1 ]; then
+  read -p "New Name: ${COLOR_CYAN}" USER_NEW_NAME
+  echo "${COLOR_RESET}"
+elif [ -z "$USER_NEW_NAME" ] && [ "$SHOULD_EXECUTE" == 1 ]; then
   echo "${COLOR_RED}ERROR: --new-name is required.${COLOR_RESET}"
   echo "${COLOR_RED}Try again by passing a valid first and last name or removing the --force flag."${COLOR_RESET} >&2
   exit 1
@@ -385,11 +385,11 @@ fi
 ALL_REMOTE_REPOSITORIES=$(git ${USER_GIT_DIR} ${USER_WORK_TREE} remote show)
 
 # If user wants to update remote and remote repositories exist, and user did not force
-if [ -z "$UPDATE_REMOTE" ] && [ -n "$ALL_REMOTE_REPOSITORIES" ] && [ "$SHOULD_EXECUTE" -eq 0 ]; then
+if [ -z "$UPDATE_REMOTE" ] && [ -n "$ALL_REMOTE_REPOSITORIES" ] && [ "$SHOULD_EXECUTE" == 0 ]; then
   # Check if user would like to update a remote repository
   while true; do
-    read -e -p "Would you like to update a remote repository? [y/n]: ${COLOR_CYAN}" UPDATE_REMOTE
-    echo -e "${COLOR_RESET}"
+    read -p "Would you like to update a remote repository? [y/n]: ${COLOR_CYAN}" UPDATE_REMOTE
+    echo "${COLOR_RESET}"
     case $UPDATE_REMOTE in
     [Yy]*)
       UPDATE_REMOTE=1
@@ -406,7 +406,7 @@ if [ -z "$UPDATE_REMOTE" ] && [ -n "$ALL_REMOTE_REPOSITORIES" ] && [ "$SHOULD_EX
       ;;
     esac
   done
-elif [ "$SHOULD_EXECUTE" -eq 1 ] && [ -n "$ALL_REMOTE_REPOSITORIES" ]; then
+elif [ "$SHOULD_EXECUTE" == 1 ] && [ -n "$ALL_REMOTE_REPOSITORIES" ]; then
   # User forced, and remote repositories exist, so set flag
   UPDATE_REMOTE=1
 elif [ -z "$ALL_REMOTE_REPOSITORIES" ]; then
@@ -415,7 +415,7 @@ elif [ -z "$ALL_REMOTE_REPOSITORIES" ]; then
 fi
 
 # USER_REMOTE
-if [ "$UPDATE_REMOTE" -eq 1 ] && [ -z "$USER_REMOTE" ] && [ "$SHOULD_EXECUTE" -eq 0 ]; then
+if [ "$UPDATE_REMOTE" == 1 ] && [ -z "$USER_REMOTE" ] && [ "$SHOULD_EXECUTE" == 0 ]; then
   # Prompt user for remote (Default: 'origin' )
   echo ""
   echo "Existing Remote Repositories:"
@@ -426,10 +426,10 @@ if [ "$UPDATE_REMOTE" -eq 1 ] && [ -z "$USER_REMOTE" ] && [ "$SHOULD_EXECUTE" -e
   echo "Enter the name of the remote you would like to alter."
   echo "Default: ${COLOR_YELLOW}${DEFAULT_REMOTE}${COLOR_RESET}"
   echo "--------------------------------------------------------"
-  read -e -p "Remote Name [Press enter to use ${COLOR_YELLOW}${DEFAULT_REMOTE}${COLOR_RESET}]: ${COLOR_CYAN}" USER_REMOTE
+  read -p "Remote Name [Press enter to use ${COLOR_YELLOW}${DEFAULT_REMOTE}${COLOR_RESET}]: ${COLOR_CYAN}" USER_REMOTE
   USER_REMOTE=${USER_REMOTE:-"$DEFAULT_REMOTE"}
-  echo -e "${COLOR_RESET}"
-elif [ -z "$USER_REMOTE" ] && [ "$SHOULD_EXECUTE" -eq 1 ]; then
+  echo "${COLOR_RESET}"
+elif [ -z "$USER_REMOTE" ] && [ "$SHOULD_EXECUTE" == 1 ]; then
   # Running non-interactive, so set to default
   USER_REMOTE="$DEFAULT_REMOTE"
   echo ""
@@ -443,7 +443,7 @@ else
   USER_REMOTE="${USER_REMOTE}"
 fi
 
-if [ "$UPDATE_REMOTE" -eq 1 ]; then
+if [ "$UPDATE_REMOTE" == 1 ]; then
   # Check if USER_REMOTE exists
   USER_REMOTE_EXISTS="$(git ${USER_GIT_DIR} ${USER_WORK_TREE} remote show | grep -wxi ${USER_REMOTE})"
   # Get the remote repository URL, if there is one
@@ -461,14 +461,14 @@ if [ "$UPDATE_REMOTE" -eq 1 ]; then
 fi
 
 # Have user verify repository
-if [ "$UPDATE_REMOTE" -eq 1 ] && [ -n "$USER_REMOTE_EXISTS" ] && [ -n "$REMOTE_REPOSITORY" ] && [ "$REPOSITORY_VERIFIED" -eq 0 ]; then
+if [ "$UPDATE_REMOTE" == 1 ] && [ -n "$USER_REMOTE_EXISTS" ] && [ -n "$REMOTE_REPOSITORY" ] && [ "$REPOSITORY_VERIFIED" == 0 ]; then
   while true; do
     echo ""
     echo "Please verify that the remote repository shown below is correct:"
     echo "Remote URL: ${COLOR_YELLOW}${REMOTE_REPOSITORY}${COLOR_RESET}"
     echo "--------------------------------------------------------"
-    read -e -p "${COLOR_RED}Is this the correct repository? [y/n]: ${COLOR_CYAN}" USER_CONFIRM
-    echo -e "${COLOR_RESET}"
+    read -p "${COLOR_RED}Is this the correct repository? [y/n]: ${COLOR_CYAN}" USER_CONFIRM
+    echo "${COLOR_RESET}"
     case $USER_CONFIRM in
     [Yy]*)
       REPOSITORY_VERIFIED=1
@@ -488,7 +488,7 @@ if [ "$UPDATE_REMOTE" -eq 1 ] && [ -n "$USER_REMOTE_EXISTS" ] && [ -n "$REMOTE_R
 fi
 
 # Have the user confirm before executing (if they didn't already cancel)
-if [ "$SHOULD_EXECUTE" -eq 0 ] && { [ "$REPOSITORY_VERIFIED" -eq 1 ] || [ "$UPDATE_REMOTE" -eq 0 ]; }; then
+if [ "$SHOULD_EXECUTE" == 0 ] && { [ "$REPOSITORY_VERIFIED" == 1 ] || [ "$UPDATE_REMOTE" == 0 ]; }; then
   while true; do
     echo ""
     echo "Are you sure you want to rewrite the entire"
@@ -497,7 +497,7 @@ if [ "$SHOULD_EXECUTE" -eq 0 ] && { [ "$REPOSITORY_VERIFIED" -eq 1 ] || [ "$UPDA
     echo "Old email:  ${COLOR_CYAN}${USER_OLD_EMAIL}${COLOR_RESET}"
     echo "New email:  ${COLOR_CYAN}${USER_NEW_EMAIL}${COLOR_RESET}"
     echo "New name:   ${COLOR_CYAN}${USER_NEW_NAME}${COLOR_RESET}"
-    if [ "$UPDATE_REMOTE" -eq 1 ] && [ -n "$USER_REMOTE" ] && [ -n "$REMOTE_REPOSITORY" ]; then
+    if [ "$UPDATE_REMOTE" == 1 ] && [ -n "$USER_REMOTE" ] && [ -n "$REMOTE_REPOSITORY" ]; then
       echo "Remote:     ${COLOR_CYAN}${USER_REMOTE}${COLOR_RESET}"
       echo "Remote URL: ${COLOR_CYAN}${REMOTE_REPOSITORY}${COLOR_RESET}"
     fi
@@ -507,8 +507,8 @@ if [ "$SHOULD_EXECUTE" -eq 0 ] && { [ "$REPOSITORY_VERIFIED" -eq 1 ] || [ "$UPDA
     echo "${COLOR_YELLOW}or clones must fetch the rewritten history and${COLOR_RESET}"
     echo "${COLOR_YELLOW}rebase any local changes into the rewritten history.${COLOR_RESET}"
     echo ""
-    read -e -p "${COLOR_RED}Continue? [y/n]: ${COLOR_CYAN}" USER_CONFIRM
-    echo -e "${COLOR_RESET}"
+    read -p "${COLOR_RED}Continue? [y/n]: ${COLOR_CYAN}" USER_CONFIRM
+    echo "${COLOR_RESET}"
     case $USER_CONFIRM in
     [Yy]*)
       SHOULD_EXECUTE=1
@@ -530,7 +530,7 @@ fi
 echo ""
 
 # If SHOULD_EXECUTE is true, and REPOSITORY_VERIFIED is true, rewrite repo history, otherwise, exit
-if [ "$SHOULD_EXECUTE" -eq 1 ]; then
+if [ "$SHOULD_EXECUTE" == 1 ]; then
   # Alter commits and rewrite history
   git ${USER_GIT_DIR:+-$USER_GIT_DIR} ${USER_WORK_TREE:+-$USER_WORK_TREE} filter-branch -f --env-filter '
     if [ "$(echo "$GIT_COMMITTER_EMAIL" | awk "{print tolower(\$0)}")" = "'"$USER_OLD_EMAIL"'" ]
@@ -550,7 +550,7 @@ if [ "$SHOULD_EXECUTE" -eq 1 ]; then
   echo "${COLOR_GREEN}Successfully updated local commit author info.${COLOR_RESET}"
 
   # If user wants to update remote and the remote is verified
-  if [ "$UPDATE_REMOTE" -eq 1 ] && [ -n "$REPOSITORY_VERIFIED" ]; then
+  if [ "$UPDATE_REMOTE" == 1 ] && [ -n "$REPOSITORY_VERIFIED" ]; then
     echo ""
     echo "Preparing to push to remote '${USER_REMOTE}'..."
     echo ""
