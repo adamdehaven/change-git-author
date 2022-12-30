@@ -348,7 +348,7 @@ if [ "$USER_OLD_EMAIL" == "$USER_NEW_EMAIL" ] && [ "$SHOULD_EXECUTE" == 0 ]; the
       ;;
     esac
   done
-elif [ "$USER_OLD_EMAIL" == "$USER_NEW_EMAIL" ] && [ "$SHOULD_EXECUTE" == 1 ]; then
+else
   UPDATE_NAME=1
 fi
 
